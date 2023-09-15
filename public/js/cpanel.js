@@ -18,6 +18,7 @@ let table = new Tabulator("#cpanel", {
     layout:"fitColumns",
     paginationSize:10,
     pagination:true,
+    height:"650px",
     footerElement:"<button id='btnAddCustomer' class='btn btn-success'>Add customer</button>",
     columns:[
         {

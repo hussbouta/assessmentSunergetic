@@ -9,13 +9,49 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
+    <link href="{{ URL::asset('css/style.css') }} " rel="stylesheet">
+    <title>Sunergetics - Cpanel</title>
 </head>
 <body>
 
-<div class='container-fluid'>
+<div id="sky">
+	<div class="theSun">
+		<div class="ray_box">
+			<div class="ray ray1"></div>
+			<div class="ray ray2"></div>
+			<div class="ray ray3"></div>
+			<div class="ray ray4"></div>
+			<div class="ray ray5"></div>
+			<div class="ray ray6"></div>
+			<div class="ray ray7"></div>
+			<div class="ray ray8"></div>
+			<div class="ray ray9"></div>
+			<div class="ray ray10"></div>
+		</div>
+	</div>
+	<div class="cloudwrapperOne">
+		<div class="cloud c1"></div>
+    </div>
+	<div class="cloudwrapperTwo">
+		<div class="cloud c2"></div>
+	</div>
+	<div class="cloudwrapperThree">
+		<div class="cloud c3"></div>
+	</div>
+
+</div>
+</div>
+
+
+
+<div class='container-fluid p-0'>
     <div id="cpanel"></div>
 </div>
+<div style="position: relative">
+      <h1 style="" class="display-1 brand">Sunergetic</h1>
+    </div>
 
     <script type="text/javascript" src="{{ asset('js/cpanel.js') }}"></script>        
 </body>
