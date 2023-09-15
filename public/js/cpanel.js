@@ -27,7 +27,7 @@ let table = new Tabulator("#cpanel", {
             title:"Lastname", field:"lastname", editor:"textarea", maxWidth:300
         },
         {
-            title:"Email", field:"email", editor:"textarea", maxWidth:300
+            title:"Email", field:"email", editor:"textarea", maxWidth:300, validator: "regex:^[A-Za-z._]{1,}@[A-Za-z]{1,}[.]{1}[A-Za-z.]{2,6}$",
         },
         {
             title:"Address", field:"address", editor:"textarea", maxWidth:300
@@ -46,30 +46,33 @@ let table = new Tabulator("#cpanel", {
             title:"Delete", formatter:btnDelete, headerHozAlign:"center", hozAlign:"center", maxWidth:120,
                 cellClick:function(e, cell){
 
+                    let message = cell.getData().firstname ? 'Delete customer '+cell.getData().firstname : 'Cancel creation?';
+
                     Swal.fire({
                         title: 'Are you sure?',
-                        text: `Delete customer ${cell.getData().firstname}`,
+                        text: message,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: cell.getData().firstname ? 'Yes, delete it!' : 'Remove edition',
                       }).then((result) => {
                         if (result.isConfirmed) {
-
                             let id = cell.getData().id;
                             let response = $.ajax({
                                 url: url+id,
                                 type: 'DELETE',
                                 });
                             
-                            table.replaceData();
-
+                            
                             Swal.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'Customer deleted.',
                                 'success'
-                                )
+                                ).then(function() {
+                                    table.replaceData();
+                                });
+                            
                         }
                       })
             }
@@ -79,28 +82,34 @@ let table = new Tabulator("#cpanel", {
                 cellClick: async function(e, cell){
                
                     let id = cell.getData().id;
-                    let message;
+                    let route = id ? url+id : url;
+                    let method = id ? 'PUT' : 'POST';
                     $.ajax({
-                        url: url+id,
-                        type: 'PUT',
+                        url: route,
+                        type: method,
                         dataType: 'json',
                         data: cell.getData(),
                         success: function (data) {
-                            
-                            message = data.message;
                             Swal.fire({
                                 position: 'top-end',
                                 icon: 'info',
-                                title: message,
+                                title: data.message,
                                 showConfirmButton: false,
                                 timer: 2000
+                              }).then(function() {
+                                table.replaceData();
+                            });    
+                        },
+                        error: function (textStatus, errorThrown) {
+                            let errors = JSON.stringify(textStatus.responseJSON.errors);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: errors.replace(/[\])}"[{(]/g, ''),
+                                footer: '<a href="">Why do I have this issue?</a>'
                               })
                         }
-                    });
-
-                    setTimeout(() => {
-                        location.reload()
-                      }, "2000");                    
+                    });              
             },
         }
     ],
@@ -114,6 +123,11 @@ let table = new Tabulator("#cpanel", {
     });
 
  });
+
+ table.on("cellEdited", function(cell){
+
+    cell.getElement().style.backgroundColor = "#f8c291";
+});
 
 
 
