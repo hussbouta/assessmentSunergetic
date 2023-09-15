@@ -44,20 +44,38 @@ let table = new Tabulator("#cpanel", {
         },
         {
             title:"Delete", formatter:btnDelete, headerHozAlign:"center", hozAlign:"center", maxWidth:120,
-                cellClick:function(e, cell){(
-                async () => {
-                        let id = cell.getData().id;
-                        let response = $.ajax({
-                            url: url+id,
-                            type: 'DELETE',
-                            });
-                })();
-                
-                table.replaceData();
+                cellClick:function(e, cell){
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: `Delete customer ${cell.getData().firstname}`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            let id = cell.getData().id;
+                            let response = $.ajax({
+                                url: url+id,
+                                type: 'DELETE',
+                                });
+                            
+                            table.replaceData();
+
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                )
+                        }
+                      })
             }
         },
         {
-            title:"Opsalan", formatter:btnEdit, headerHozAlign:"center", hozAlign:"center",maxWidth:120,
+            title:"Update", formatter:btnEdit, headerHozAlign:"center", hozAlign:"center",maxWidth:120,
                 cellClick: async function(e, cell){
                
                     let id = cell.getData().id;
@@ -82,9 +100,7 @@ let table = new Tabulator("#cpanel", {
 
                     setTimeout(() => {
                         location.reload()
-                      }, "2000");
-
-                    
+                      }, "2000");                    
             },
         }
     ],
