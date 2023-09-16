@@ -1,14 +1,17 @@
+// URL API sunergetics
 let url = "http://localhost:8000/api/v1/customers/";
 
-
+// Button for deleting customers
 let btnDelete = function (cell, formatterParams, onRendered) {
   return "<i class='text-danger fa-solid fa-trash-can'></i>";
 };
 
+// Button for updating customers
 let btnEdit = function (cell, formatterParams, onRendered) {
   return "<i class='text-primary fa-regular fa-floppy-disk'></i>";
 };
 
+// Table
 let table = new Tabulator("#cpanel", {
   ajaxURL: url,
   ajaxResponse: function (url, params, response) {
@@ -18,10 +21,8 @@ let table = new Tabulator("#cpanel", {
   paginationSize: 10,
   pagination: true,
   maxHeight: "100%",
-  footerElement:
-    "<button id='btnAddCustomer' class='btn btn-success'>Add customer</button>",
-  columns: [
-    {
+  footerElement: "<button id='btnAddCustomer' class='btn btn-success'>Add customer</button>",
+  columns: [{
       title: "Firstname",
       field: "firstname",
       editor: "textarea",
@@ -79,9 +80,9 @@ let table = new Tabulator("#cpanel", {
       maxWidth: 120,
       headerFilter: "input",
       cellClick: function (e, cell) {
-        let message = cell.getData().firstname
-          ? "Delete customer " + cell.getData().firstname
-          : "Cancel creation?";
+        let message = cell.getData().firstname ?
+          "Delete customer " + cell.getData().firstname :
+          "Cancel creation?";
 
         Swal.fire({
           title: "Are you sure?",
@@ -90,9 +91,9 @@ let table = new Tabulator("#cpanel", {
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: cell.getData().firstname
-            ? "Yes, delete it!"
-            : "Remove edition",
+          confirmButtonText: cell.getData().firstname ?
+            "Yes, delete it!" :
+            "Remove edition",
         }).then((result) => {
           if (result.isConfirmed) {
             let id = cell.getData().id;
