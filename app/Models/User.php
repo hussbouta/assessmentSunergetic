@@ -9,7 +9,8 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -26,7 +29,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -37,17 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * Relations
-     */
-    public function projects()
-    {
-        return $this->hasMany(Project::class, 'repository_id');
-    }
-
-    public function subjects()
-    {
-        return $this->hasMany(Subject::class, 'repository_id');
-    }
 }

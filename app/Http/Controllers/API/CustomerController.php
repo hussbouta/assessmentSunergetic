@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
 use App\Classes\CustomerManager;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerPostRequest;
 
 class CustomerController extends Controller
 {
-
     /**
      * Resturn list of all customers.
      *
