@@ -15,26 +15,31 @@ let btnEdit = function (cell, formatterParams, onRendered) {
 let table = new Tabulator("#cpanel", {
   ajaxURL: url,
   ajaxResponse: function (url, params, response) {
-    return response.data;
+    // Must configure with server side
+    let last_page = response.pagination.lastPage;
+    return {
+      data: response.data,
+      last_page,
+    };
   },
   layout: "fitColumns",
-  paginationSize: 10,
-  pagination: true,
+  pagination: true, //enable pagination
+  paginationMode: "remote", //enable remote pagination
   maxHeight: "100%",
-  footerElement: "<button id='btnAddCustomer' class='btn btn-success'>Add customer</button>",
-  columns: [{
+  footerElement:
+    "<button id='btnAddCustomer' class='btn btn-success'>Add customer</button>",
+  columns: [
+    {
       title: "Firstname",
       field: "firstname",
       editor: "textarea",
       maxWidth: 300,
-      headerFilter: "input",
     },
     {
       title: "Lastname",
       field: "lastname",
       editor: "textarea",
       maxWidth: 300,
-      headerFilter: "input",
     },
     {
       title: "Email",
@@ -42,35 +47,30 @@ let table = new Tabulator("#cpanel", {
       editor: "textarea",
       maxWidth: 300,
       validator: "regex:^[A-Za-z._]{1,}@[A-Za-z]{1,}[.]{1}[A-Za-z.]{2,6}$",
-      headerFilter: "input",
     },
     {
       title: "Address",
       field: "address",
       editor: "textarea",
       maxWidth: 300,
-      headerFilter: "input",
     },
     {
       title: "Zipcode",
       field: "zipcode",
       editor: "textarea",
       maxWidth: 300,
-      headerFilter: "input",
     },
     {
       title: "City",
       field: "city",
       editor: "textarea",
       maxWidth: 300,
-      headerFilter: "input",
     },
     {
       title: "Phone",
       field: "phone",
       editor: "textarea",
       maxWidth: 300,
-      headerFilter: "input",
     },
     {
       title: "Delete",
@@ -78,11 +78,10 @@ let table = new Tabulator("#cpanel", {
       headerHozAlign: "center",
       hozAlign: "center",
       maxWidth: 120,
-      headerFilter: "input",
       cellClick: function (e, cell) {
-        let message = cell.getData().firstname ?
-          "Delete customer " + cell.getData().firstname :
-          "Cancel creation?";
+        let message = cell.getData().firstname
+          ? "Delete customer " + cell.getData().firstname
+          : "Cancel creation?";
 
         Swal.fire({
           title: "Are you sure?",
@@ -91,9 +90,9 @@ let table = new Tabulator("#cpanel", {
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: cell.getData().firstname ?
-            "Yes, delete it!" :
-            "Remove edition",
+          confirmButtonText: cell.getData().firstname
+            ? "Yes, delete it!"
+            : "Remove edition",
         }).then((result) => {
           if (result.isConfirmed) {
             let id = cell.getData().id;
@@ -116,8 +115,7 @@ let table = new Tabulator("#cpanel", {
       headerHozAlign: "center",
       hozAlign: "center",
       maxWidth: 120,
-      headerFilter: "input",
-      cellClick: async function (e, cell) {
+      cellClick: function (e, cell) {
         let id = cell.getData().id;
         let route = id ? url + id : url;
         let method = id ? "PUT" : "POST";
