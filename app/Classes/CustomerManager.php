@@ -21,7 +21,7 @@ class CustomerManager
             $response = Http::withHeaders([
                 'token' => config('api.token'),
             ])->get($url);
-            
+
             return $response;
         } catch (Exception $e) {
 
