@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class CustomerManager
 {
-    public static function getAll()
+    public static function getAll(): object
     {
 
         try {
@@ -16,16 +16,15 @@ class CustomerManager
             $response = Http::withHeaders([
                 'token' => config('api.token'),
             ])->get($url);
-
+            
             return $response;
-
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return (object) $e->getMessage();
         }
     }
 
-    public static function create(array $data)
+    public static function create(array $data): object
     {
         $data = (object) $data;
         try {
@@ -48,12 +47,12 @@ class CustomerManager
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return (object) $e->getMessage();
 
         }
     }
 
-    public static function find(int $id)
+    public static function find(int $id): object
     {
         try {
 
@@ -66,12 +65,12 @@ class CustomerManager
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return (object) $e->getMessage();
         }
     }
 
 
-    public static function update(array $data)
+    public static function update(array $data): object
     {
         $data = (object) $data;
 
@@ -95,12 +94,12 @@ class CustomerManager
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return (object) $e->getMessage();
 
         }
     }
 
-    public static function destroy(int $id)
+    public static function destroy(int $id): object
     {
         try {
 
@@ -113,7 +112,7 @@ class CustomerManager
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return (object) $e->getMessage();
         }
     }
 

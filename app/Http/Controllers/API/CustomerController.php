@@ -13,7 +13,7 @@ class CustomerController extends Controller
     /**
      * Resturn list of all customers.
      *
-     * @return \Illuminate\Http\Response
+     * @return object
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class CustomerController extends Controller
      * Store new customer.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return object
      */
     public function store(CustomerPostRequest $request)
     {
@@ -37,7 +37,7 @@ class CustomerController extends Controller
      * Update  customer.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return object
      */
     public function update(CustomerPostRequest $request)
     {
@@ -49,7 +49,7 @@ class CustomerController extends Controller
      * Display a specified customer.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return object
      */
     public function show(int $id)
     {
@@ -61,7 +61,7 @@ class CustomerController extends Controller
      * Remove specified customer.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return object
      */
     public function destroy(int $id)
     {
