@@ -24,8 +24,8 @@ class CustomerPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' =>  'nullable|numeric',
-            'email' =>  'required|string',
+            'id' => 'nullable|numeric',
+            'email' => 'required|string',
             'firstname' => 'required|string',
             'lastname' => 'required|string',
             'address' => 'required|string',

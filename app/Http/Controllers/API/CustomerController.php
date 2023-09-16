@@ -33,7 +33,7 @@ class CustomerController extends Controller
     }
 
 
-        /**
+    /**
      * Update  customer.
      *
      * @param  \Illuminate\Http\Request  $request

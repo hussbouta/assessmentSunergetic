@@ -16,7 +16,7 @@ class CustomerApiTest extends TestCase
     public function testGetAll()
     {
         $response = $this->getJson('/customers');
- 
+
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -26,18 +26,18 @@ class CustomerApiTest extends TestCase
 
     public function testStore()
     {
-        
+
         $data = [
-            "email" => "email@example.com", 
-            "firstname" => "John", 
-            "lastname" => "Doe", 
-            "address" => "Vermeulenbaan 178 13329VJ Zuidwolde", 
-            "zipcode" => "1822LB", 
-            "city" => "Alkmaar", 
-            "phone" => "+31675399935" 
-        ]; 
+            "email" => "email@example.com",
+            "firstname" => "John",
+            "lastname" => "Doe",
+            "address" => "Vermeulenbaan 178 13329VJ Zuidwolde",
+            "zipcode" => "1822LB",
+            "city" => "Alkmaar",
+            "phone" => "+31675399935"
+        ];
         $response = $this->postJson('/customers', $data);
-        
+
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -49,15 +49,15 @@ class CustomerApiTest extends TestCase
     {
         $response = $this->putJson('/customers', ['id' => $id]);
         $data = [
-            "email" => "email@example.com", 
-            "firstname" => "John", 
-            "lastname" => "Doe", 
-            "address" => "Vermeulenbaan 178 13329VJ Zuidwolde", 
-            "zipcode" => "1822LB", 
-            "city" => "Alkmaar", 
-            "phone" => "+31675399935" 
-        ]; 
-        
+            "email" => "email@example.com",
+            "firstname" => "John",
+            "lastname" => "Doe",
+            "address" => "Vermeulenbaan 178 13329VJ Zuidwolde",
+            "zipcode" => "1822LB",
+            "city" => "Alkmaar",
+            "phone" => "+31675399935"
+        ];
+
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -68,7 +68,7 @@ class CustomerApiTest extends TestCase
     public function testShow()
     {
         $response = $this->getJson('/customers', ['id' => $id]);
- 
+
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -79,7 +79,7 @@ class CustomerApiTest extends TestCase
     public function testDestroy()
     {
         $response = $this->deleteJson('/customers', ['id' => $id]);
- 
+
         $response
             ->assertStatus(200)
             ->assertJson([
