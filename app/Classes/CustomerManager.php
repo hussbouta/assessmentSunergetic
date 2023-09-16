@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Http;
 
 class CustomerManager
 {
+    /**
+     * Call api to get all customers
+     *
+     * @return object
+     */
     public static function getAll(): object
     {
 
@@ -24,6 +29,12 @@ class CustomerManager
         }
     }
 
+    /**
+     * Call api to create  customer
+     *
+     * @param  array  $data
+     * @return object
+     */
     public static function create(array $data): object
     {
         $data = (object) $data;
@@ -52,6 +63,12 @@ class CustomerManager
         }
     }
 
+    /**
+     * Call api to find customer
+     *
+     * @param  int  $id
+     * @return object
+     */
     public static function find(int $id): object
     {
         try {
@@ -69,7 +86,12 @@ class CustomerManager
         }
     }
 
-
+    /**
+     * Call api to update  customer
+     *
+     * @param  array  $data
+     * @return object
+     */
     public static function update(array $data): object
     {
         $data = (object) $data;
@@ -99,6 +121,12 @@ class CustomerManager
         }
     }
 
+    /**
+     * Call api to delete customer
+     *
+     * @param  int  $id
+     * @return object
+     */
     public static function destroy(int $id): object
     {
         try {
